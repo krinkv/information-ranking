@@ -29,24 +29,11 @@ def get_all_words():
 
 
 def contains_word(word):
-    """
-    Check if the given `word` is an existing one in the dictionary.
-
-    :param word: The word to check
-    :return: True if word is in dictionary, False otherwise
-    """
-    # TODO: Implement
-    pass
+    return word in dictionary
 
 
 def get_word_popularity(word):
-    """
-    Get how common `word` is
-    :param word: The word to check popularity for
-    :return: A value of type `Popularity` (enum constant)
-    """
-    # TODO: Implement
-    pass
+    return dictionary[word]
 
 
 def __read_file_words(path):

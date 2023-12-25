@@ -11,4 +11,3 @@ PATHS = ["./resources/english-words.10",
 
 if __name__ == '__main__':
     dictionary.init_dict(PATHS)
-    words = dictionary.get_all_words()
