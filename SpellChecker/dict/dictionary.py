@@ -17,12 +17,11 @@ dictionary = {}
 
 def init_dict(paths):
     for path in paths:
-        with open(path, 'r') as file:
-            file_words = [line.strip() for line in file]
-            extension = path.split('.')[-1]
+        file_words = __read_file_words(path)
+        extension = path.split('.')[-1]
 
-            for word in file_words:
-                dictionary[word] = Popularity(int(extension))
+        for word in file_words:
+            dictionary[word] = Popularity(int(extension))
 
 
 def get_all_words():
@@ -48,3 +47,8 @@ def get_word_popularity(word):
     """
     # TODO: Implement
     pass
+
+
+def __read_file_words(path):
+    with open(path, 'r') as file:
+        return [line.strip() for line in file]
