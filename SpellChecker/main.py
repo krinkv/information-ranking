@@ -1,7 +1,16 @@
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import dict.dictionary as dictionary
+
+
+PATHS = ["./resources/english-words.10",
+         "./resources/english-words.20",
+         "./resources/english-words.35",
+         "./resources/english-words.40",
+         "./resources/english-words.50",
+         "./resources/english-words.55",
+         "./resources/english-words.60",
+         "./resources/english-words.70"]
 
 
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    dictionary.init_dict(PATHS)
+    words = dictionary.get_all_words()

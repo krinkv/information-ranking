@@ -2,25 +2,31 @@ from enum import Enum
 
 
 class Popularity(Enum):
-    """
-    Define all values for enum that show how common a word is in the English language
-    Idea is to use a words popularity to modify its 'weight' in calculations
-    """
+    VERY_COMMON = 10
+    FAIRLY_COMMON = 20
+    COMMON = 35
+    UNCOMMON = 40
+    FAIRLY_UNCOMMON = 50
+    RARE = 55
+    EPIC = 60
+    LEGENDARY = 70
 
 
-dictionary = None
+dictionary = {}
 
 
 def init_dict(paths):
-    """
-    Initialize the dictionary, which is a hash table that looks like this:
-    word -> file from which the word is
+    for path in paths:
+        with open(path, 'r') as file:
+            file_words = [line.strip() for line in file]
+            extension = path.split('.')[-1]
 
-    :param paths: A list of paths to files from which to load the words
-    :return: Nothing I guess?
-    """
-    # TODO: Implement
-    pass
+            for word in file_words:
+                dictionary[word] = Popularity(int(extension))
+
+
+def get_all_words():
+    return dictionary.keys()
 
 
 def contains_word(word):
