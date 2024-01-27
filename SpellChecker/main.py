@@ -1,4 +1,5 @@
 import dict.dictionary as dictionary
+import kgrams.k_gram_index as k_gram_index
 
 PATHS = ["./resources/english-words.10",
          "./resources/english-words.20",
@@ -11,3 +12,14 @@ PATHS = ["./resources/english-words.10",
 
 if __name__ == '__main__':
     dictionary.init_dict(PATHS)
+
+    file_words = dictionary.get_all_words()
+
+    for word in file_words:
+        if word == 'spelling':
+            print('We have ' + word)
+
+    k_gram_index.init_index(file_words)
+
+    candidates = k_gram_index.get_best_candidates('speling')
+    print(candidates)
