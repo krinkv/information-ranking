@@ -15,18 +15,13 @@ if __name__ == '__main__':
     dictionary.init_dict(PATHS)
 
     file_words = dictionary.get_all_words()
-
-    for word in file_words:
-        if word == 'spelling':
-            print('We have ' + word)
-
     k_gram_index.init_index(file_words)
 
-    candidates = k_gram_index.get_best_candidates('speling')
+    candidates = k_gram_index.get_best_candidates('planr')
     print('Jaccard based candidates')
     print(candidates)
 
+    spellchecker = SpellChecker(k_gram_index, dictionary)
     print('\n\n\n')
     print('With Levenshtein distance')
-    spellchecker = SpellChecker(k_gram_index, dictionary)
-    print(spellchecker.word_corrections('speling'))
+    print(spellchecker.word_corrections('planr'))
