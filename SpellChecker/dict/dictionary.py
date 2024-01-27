@@ -1,5 +1,7 @@
 from enum import Enum
 
+from SpellChecker.util.io_util import read_file_lines
+
 
 class Popularity(Enum):
     VERY_COMMON = 10
@@ -15,9 +17,24 @@ class Popularity(Enum):
 dictionary = {}
 
 
+def clean_words(words):
+    clean = []
+
+    for word in words:
+        flag = True
+        for char in word:
+            if not ('a' <= char <= 'z') and char != '\'':
+                flag = False
+                break
+        if flag:
+            clean.append(word)
+
+    return clean
+
+
 def init_dict(paths):
     for path in paths:
-        file_words = __read_file_words(path)
+        file_words = clean_words(read_file_lines(path))
         extension = path.split('.')[-1]
 
         for word in file_words:
@@ -34,8 +51,3 @@ def contains_word(word):
 
 def get_word_popularity(word):
     return dictionary[word]
-
-
-def __read_file_words(path):
-    with open(path, 'r') as file:
-        return [line.strip() for line in file]

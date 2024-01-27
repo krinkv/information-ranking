@@ -1,5 +1,5 @@
-import dict.dictionary as dictionary
-import kgrams.k_gram_index as k_gram_index
+import SpellChecker.dict.dictionary as dictionary
+import SpellChecker.kgrams.k_gram_index as k_gram_index
 from SpellChecker.query.spell_checker import SpellChecker
 
 PATHS = ["./resources/english-words.10",
