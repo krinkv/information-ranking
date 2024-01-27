@@ -1,5 +1,6 @@
 import dict.dictionary as dictionary
 import kgrams.k_gram_index as k_gram_index
+from SpellChecker.query.spell_checker import SpellChecker
 
 PATHS = ["./resources/english-words.10",
          "./resources/english-words.20",
@@ -22,4 +23,10 @@ if __name__ == '__main__':
     k_gram_index.init_index(file_words)
 
     candidates = k_gram_index.get_best_candidates('speling')
+    print('Jaccard based candidates')
     print(candidates)
+
+    print('\n\n\n')
+    print('With Levenshtein distance')
+    spellchecker = SpellChecker(k_gram_index, dictionary)
+    print(spellchecker.word_corrections('speling'))
