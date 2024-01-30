@@ -42,7 +42,7 @@ def init_dict(paths):
 
 
 def get_all_words():
-    return dictionary.keys()
+    return list(dictionary.keys())
 
 
 def contains_word(word):

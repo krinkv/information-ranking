@@ -1,6 +1,6 @@
 def read_file_lines(path):
     with open(path, 'r') as file:
-        return [line.strip() for line in file]
+        return [line.strip() for line in file if len(line.strip()) > 0]
 
 
 def read_testing_data(path):
