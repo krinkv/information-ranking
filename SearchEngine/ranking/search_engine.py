@@ -31,7 +31,7 @@ class SearchEngine:
         docs_content = self.documents.values()
         df = sum([1 if term in doc else 0 for doc in docs_content])
 
-        return np.log(len(self.documents) / df)
+        return np.log(len(self.documents) / df) if df > 0 else 0
 
     def vectorize(self, bag):
         bag_vec = np.zeros(len(self.dictionary))
