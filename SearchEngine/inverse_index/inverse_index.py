@@ -5,7 +5,7 @@ from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_document
 documents = dict()
 index = dict()
 
-CORPUS_DIR = './resources/'
+CORPUS_DIR = '../resources/'
 
 """
 Initialize the `documents` dictionary that would be:
@@ -28,6 +28,9 @@ def init_documents():
     for i in range(len(raw_documents)):
         documents[i] = tokenize_document(raw_documents[i])
 
+    return documents
+
+
 """
 Read content of all docs and preprocess it (i.e. tokenize it, remove stop words, consider form of storing words).
 Then initialize `index` dictionary that would be:
@@ -43,3 +46,5 @@ def init_index():
                 index[word].add(doc_id)
             else:
                 index[word] = {doc_id}
+
+    return index
