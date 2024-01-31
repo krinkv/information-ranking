@@ -14,3 +14,9 @@ def tokenize_document(doc):
     words_without_category = words[3:]
     words_to_remove = get_stop_words()
     return [word for word in words_without_category if word not in words_to_remove]
+
+
+def tokenize_query(query):
+    words = query.split()
+    words_to_remove = get_stop_words()
+    return [word for word in words if word not in words_to_remove]

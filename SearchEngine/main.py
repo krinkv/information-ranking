@@ -1,9 +1,10 @@
+import time
+
 from SearchEngine.inverse_index.inverse_index import init_documents, init_index
 from SearchEngine.inverse_index.preprocessing.stop_words import init_stop_words
 import SpellChecker.dict.dictionary as dictionary
 from SearchEngine.ranking.search_engine import SearchEngine
 from SpellChecker.main import PATHS
-from SpellChecker.util.io_util import read_file_lines
 
 
 def user_interactive_loop():
@@ -11,17 +12,10 @@ def user_interactive_loop():
     pass
 
 
-def add_numbers_to_corp_files():
-    path = '../resources/corpus.txt'
-    lines = read_file_lines(path)
-
-    with open(path, 'w') as file:
-        for i in range(len(lines)):
-            file.write(lines[i])
-            file.write('\n\n')
-
-
 if __name__ == '__main__':
+    start_time = time.time()
+    print(f'Start time: {start_time}')
+
     dictionary.init_dict(PATHS)
     dictionary_words = dictionary.get_all_words()
 
@@ -30,5 +24,37 @@ if __name__ == '__main__':
     index = init_index()
 
     search_engine = SearchEngine(dictionary_words, documents, index)
-    print("aaa")
-    print("uuu")
+
+    print(f'Elapsed time: {time.time() - start_time}')
+
+    print(search_engine.get_best_documents('health'))
+
+    print(f'Elapsed time: {time.time() - start_time}')
+
+    # start_time = time.time()
+    # for i in range(10):
+    #     search_engine.vectorize(documents[i])
+    #     curr_time = time.time()
+    #     print(f'Elapsed time on {i + 1}th doc vectorization: {curr_time - start_time} seconds')
+    #
+    # print()
+    #
+    # start_time = time.time()
+    # term = 'health'
+    # doc_ids = list(index[term])[:10]
+    # for i in range(10):
+    #     search_engine.tf_idf(term, documents[doc_ids[i]])
+    #     curr_time = time.time()
+    #     print(f'Elapsed time on {i + 1}th tf-idf: {curr_time - start_time} seconds')
+    #
+    # print()
+    #
+    # start_time = time.time()
+    # terms = ['health', 'sport', 'people', 'willing', 'hedgehog',
+    #          'reliability', 'pen', 'concurrent', 'abruption', 'morphinism']
+    # for i in range(10):
+    #     dictionary_words.index(terms[i])
+    #     curr_time = time.time()
+    #     print(f'Elapsed time on {i + 1}th dictionary index search: {curr_time - start_time} seconds')
+    #
+    # print('aaa')
