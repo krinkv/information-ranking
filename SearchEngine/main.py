@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     print(f'Elapsed time: {time.time() - start_time}')
 
-    print(search_engine.get_best_documents('health'))
+    print(search_engine.get_best_documents('transfer from chelsea to leeds'))
 
     print(f'Elapsed time: {time.time() - start_time}')
 

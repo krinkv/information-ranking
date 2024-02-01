@@ -15,10 +15,12 @@ class SearchEngine:
         query_bag = Counter(tokenize_query(query))
         candidates = []
 
-        for doc_id, doc_bag in self.documents.items():
+        relevant_docs_per_query = self.get_relevant_documents(query_bag)
+        for doc_id in relevant_docs_per_query:
+            doc_bag = self.documents[doc_id]
             keys_intersection = self.keys_intersection(query_bag, doc_bag)
-            query_vec = self.vectorize(query_bag, keys_intersection)
-            doc_vec = self.vectorize(doc_bag, keys_intersection)
+            query_vec = self.vectorize(query_bag)
+            doc_vec = self.vectorize(doc_bag)
             candidates.append((doc_id, self.cosine_similarity(query_vec, doc_vec, keys_intersection)))
 
         sorted_candidates = sorted(candidates,
@@ -39,10 +41,10 @@ class SearchEngine:
 
         return np.log(len(self.documents) / df) if df > 0 else 0
 
-    def vectorize(self, bag, keys_intersection):
+    def vectorize(self, bag):
         bag_vec = {}
 
-        for term in keys_intersection:
+        for term in bag:
             tf_idf_value = self.tf_idf(term, bag)
             try:
                 bag_vec[term] = tf_idf_value
@@ -65,4 +67,12 @@ class SearchEngine:
         doc_keys = set(doc.keys())
         return doc_keys.intersection(query_keys)
 
+    def get_relevant_documents(self, query):
+        query_keys = set(query.keys())
+        relevant_doc_ids = set()
+        for word in query_keys:
+            if word in self.index:
+                relevant_doc_ids.update(self.index[word])
+
+        return relevant_doc_ids
 
