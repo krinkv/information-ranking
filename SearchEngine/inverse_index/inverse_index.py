@@ -40,9 +40,10 @@ term -> list of ids of the docs that contain term
 def init_index():
     for doc_id in documents:
         for word, _ in documents[doc_id].items():
-            if word in index:
-                index[word].add(doc_id)
-            else:
-                index[word] = {doc_id}
+            if word.isalnum():
+                if word in index:
+                    index[word].add(doc_id)
+                else:
+                    index[word] = {doc_id}
 
     return index
