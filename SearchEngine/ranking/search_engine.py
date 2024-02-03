@@ -11,8 +11,7 @@ class SearchEngine:
         self.documents = documents
         self.index = index
 
-    def get_best_documents(self, query):
-        query_bag = Counter(tokenize_query(query))
+    def get_best_documents(self, query_bag):
         candidates = []
 
         relevant_docs_per_query = self.get_relevant_documents(query_bag)
@@ -45,11 +44,11 @@ class SearchEngine:
         bag_vec = {}
 
         for term in bag:
-            tf_idf_value = self.tf_idf(term, bag)
             try:
+                tf_idf_value = self.tf_idf(term, bag)
                 bag_vec[term] = tf_idf_value
-            except ValueError:
-                pass
+            except KeyError:
+                bag_vec[term] = 0
 
         return bag_vec
 
