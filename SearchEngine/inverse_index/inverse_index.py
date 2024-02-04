@@ -2,7 +2,7 @@ from collections import Counter
 
 from nltk.corpus import PlaintextCorpusReader
 
-from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_document
+from SearchEngine.inverse_index.preprocessing.tokenizer import preprocess_document
 
 documents = dict()
 index = dict()
@@ -20,11 +20,12 @@ Initialize the `documents` dictionary that would be:
 
 def init_documents():
     corpus = PlaintextCorpusReader(CORPUS_DIR, '.*\.txt')
-    raw_documents = corpus.paras()
+    document_names = corpus.fileids()
 
-    for i in range(len(raw_documents)):
-        tokenized = tokenize_document(raw_documents[i])
-        documents[i] = Counter(tokenized)
+    for doc_id, doc_name in enumerate(document_names):
+        words = corpus.words(doc_name)
+        tokenized = preprocess_document(words)
+        documents[doc_id] = Counter(tokenized)
 
     return documents
 

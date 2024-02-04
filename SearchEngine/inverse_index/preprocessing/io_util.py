@@ -5,7 +5,7 @@ DOC_PATH = CORPUS_DIR + "/doc%d.txt"
 
 
 def read_doc(doc_id):
-    path = DOC_PATH % doc_id
+    path = DOC_PATH % (10000 + doc_id)
 
     with open(path, 'r') as file:
         return file.read()
