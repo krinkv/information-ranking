@@ -4,16 +4,16 @@ from SpellChecker.query.spell_checker import SpellChecker
 
 from SpellChecker.util.io_util import read_testing_data
 
-TESTING_DATA_PATH = "../../resources/testing-data.txt"
+TESTING_DATA_PATH = "../../resources/dictionary/testing-data.txt"
 FILE_PATHS = [
-    "../../resources/english-words.10",
-    "../../resources/english-words.20",
-    "../../resources/english-words.35",
-    "../../resources/english-words.40",
-    "../../resources/english-words.50",
-    "../../resources/english-words.55",
-    # "../../resources/english-words.60",
-    # "../../resources/english-words.70"
+    "../../resources/dictionary/english-words.10",
+    "../../resources/dictionary/english-words.20",
+    "../../resources/dictionary/english-words.35",
+    "../../resources/dictionary/english-words.40",
+    "../../resources/dictionary/english-words.50",
+    "../../resources/dictionary/english-words.55",
+    # "../../resources/dictionary/english-words.60",
+    # "../../resources/dictionary/english-words.70"
 ]
 
 RED = '\033[91m'

@@ -7,13 +7,14 @@ from collections import Counter
 
 from flask import Flask, request, jsonify, make_response
 
+from SearchEngine.inverse_index.preprocessing.io_util import read_doc
 from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
-from SearchEngine.ranking.search_engine import init_engine
+from SearchEngine.ranking.search_engine import engine
 from SpellChecker.query.spell_checker import init_spellchecker
 
 app = Flask(__name__)
-search_engine = init_engine()
 spellchecker = init_spellchecker()
+search_engine = engine
 
 
 @app.route('/api/search', methods=['POST'])
@@ -46,3 +47,17 @@ def spellcheck():
         return make_response('', 204)
     else:
         return jsonify(result)
+
+
+@app.route('/api/documents/<doc_id>', methods=['GET'])
+def get_document(doc_id):
+    try:
+        parsed_id = int(doc_id)
+    except ValueError:
+        return jsonify(f'Document id not an integer: {doc_id}'), 400
+
+    if parsed_id < 0 or parsed_id > 2224:
+        return jsonify(f'No document with document id: {doc_id}'), 400
+
+    raw_doc = read_doc(parsed_id)
+    return jsonify(raw_doc)

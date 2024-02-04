@@ -20,9 +20,8 @@ Initialize the `documents` dictionary that would be:
 
 def init_documents():
     corpus = PlaintextCorpusReader(CORPUS_DIR, '.*\.txt')
-
-    # corpus.paras returns all paragraphs as each paragraph in corpus.txt is separate document
     raw_documents = corpus.paras()
+
     for i in range(len(raw_documents)):
         tokenized = tokenize_document(raw_documents[i])
         documents[i] = Counter(tokenized)
