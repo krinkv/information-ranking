@@ -1,13 +1,30 @@
-from collections import Counter
+import time
 
 import numpy as np
 
-from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
+from SpellChecker.dict.dictionary import dictionary
+from SearchEngine.inverse_index.inverse_index import init_documents, init_index
+from SearchEngine.inverse_index.preprocessing.stop_words import init_stop_words
+from SpellChecker.dict import dictionary
+from SpellChecker.main import PATHS
+
+
+def init_engine():
+    start_time = time.time()
+
+    dictionary.init_dict(PATHS)
+    init_stop_words()
+    documents = init_documents()
+    index = init_index()
+
+    engine = SearchEngine(documents, index)
+    print(f'Time to initialize engine: {time.time() - start_time}')
+
+    return engine
 
 
 class SearchEngine:
-    def __init__(self, dictionary, documents, index):
-        self.dictionary = dictionary
+    def __init__(self, documents, index):
         self.documents = documents
         self.index = index
 
