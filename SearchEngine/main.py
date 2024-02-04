@@ -1,31 +1,8 @@
-import time
-
-from SearchEngine.inverse_index.inverse_index import init_documents, init_index
-from SearchEngine.inverse_index.preprocessing.stop_words import init_stop_words
-import SpellChecker.dict.dictionary as dictionary
-from SearchEngine.ranking.search_engine import SearchEngine
-from SearchEngine.user_interaction.user_interaction import user_interactive_loop
-from SpellChecker.main import PATHS
-
-
-def init_engine():
-    start_time = time.time()
-
-    dictionary.init_dict(PATHS)
-    dictionary_words = dictionary.get_all_words()
-    init_stop_words()
-    documents = init_documents()
-    index = init_index()
-
-    engine = SearchEngine(dictionary_words, documents, index)
-    print(f'Time to initialize engine: {time.time() - start_time}')
-
-    return engine
+from SearchEngine.web.main_controller import app
 
 
 if __name__ == '__main__':
-    search_engine = init_engine()
-    user_interactive_loop(search_engine)
+    app.run(debug=True)
 
     # print(search_engine.get_best_documents('transfer from chelsea to leeds'))
 
