@@ -1,7 +1,8 @@
 <div class="center-container">
   <div class="centered-element">
     <form (ngSubmit)="onSubmit()" action="" class="search-bar">
-      <input id="search-input"
+      <input id="search-input" class="input"
+             contenteditable spellcheck="true"
              [(ngModel)]="inputValue"
              type="search"
              name="search"
@@ -10,6 +11,22 @@
       <button class="search-btn" type="submit">
         <span>Search</span>
       </button>
+    </form>
+  </div>
+</div>
+
+<!--<div class="cont_heg_50"></div>-->
+
+<div class="cont_select_center">
+
+  <!-- Custom select structure -->
+  <div style="display: block">
+    <form (ngSubmit)="onCorrect()">
+      <select name="suggestions" class="custom-select" [(ngModel)]="selectedOption">
+        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+      </select>
+
+      <button class="correction" type="submit"> Correct</button>
     </form>
   </div>
 </div>
