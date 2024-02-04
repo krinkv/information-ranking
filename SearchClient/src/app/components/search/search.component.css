@@ -161,3 +161,35 @@ body {
 
 .centered-element {
 }
+
+
+/*SUGGESTION SELECTOR*/
+
+/* ///  DECORATION CSS ///  */
+.cont_select_center {
+  position: absolute;
+  left: 50%;
+  top:70%;
+  margin-top: -30px;
+  margin-left: -150px;
+}
+
+.custom-select {
+  width: 300px;
+  background: transparent;
+  box-shadow: 0 0 0 0.1em #d9d9d9 inset;
+  padding: 0.75em;
+  transform-origin: 100% 0;
+}
+
+.correction {
+  background-color: #2762f3; /* Green */
+  border: none;
+  color: white;
+  margin-left: 50px;
+  padding: 7px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}

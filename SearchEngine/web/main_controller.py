@@ -6,6 +6,7 @@ import time
 from collections import Counter
 
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 
 from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
 from SearchEngine.ranking.search_engine import init_engine
@@ -14,6 +15,8 @@ from SpellChecker.query.spell_checker import init_spellchecker
 app = Flask(__name__)
 search_engine = init_engine()
 spellchecker = init_spellchecker()
+
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})  # Adjust the path and origins as needed
 
 
 @app.route('/api/search', methods=['POST'])
