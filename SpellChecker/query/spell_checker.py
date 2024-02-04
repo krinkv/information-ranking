@@ -1,6 +1,8 @@
 import Levenshtein
 
+from SpellChecker.dict import dictionary
 from SpellChecker.dict.dictionary import Popularity
+from SpellChecker.kgrams import k_gram_index
 
 # approximate layout of keys and their distance on a keyboard
 KEYBOARD_LAYOUT = {
@@ -17,6 +19,25 @@ KEYBOARD_LAYOUT = {
 }
 
 POPULARITY_WEIGHTS = {}
+
+PATHS = ["../resources/english-words.10",
+         "../resources/english-words.20",
+         "../resources/english-words.35",
+         "../resources/english-words.40",
+         "../resources/english-words.50",
+         "../resources/english-words.55",
+         "../resources/english-words.60",
+         "../resources/english-words.70"]
+
+
+def init_spellchecker():
+    dictionary.init_dict(PATHS)
+
+    file_words = dictionary.get_all_words()
+    k_gram_index.init_index(file_words)
+
+    spellchecker = SpellChecker(k_gram_index, dictionary)
+    return spellchecker
 
 
 def assign_popularity_weights():
@@ -48,6 +69,9 @@ class SpellChecker:
         assign_popularity_weights()
 
     def word_corrections(self, input_word):
+        if self.dictionary.contains_word(input_word):
+            return []
+
         k_gram_based_candidates = [tuple_candidate[0] for tuple_candidate in
                                    self.k_gram_index.get_best_candidates(input_word)]
 
