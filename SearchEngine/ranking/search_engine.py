@@ -30,7 +30,8 @@ class SearchEngine:
 
         previews = []
         for doc_id, _ in sorted_candidates[:10]:
-            previews.append((doc_id, self.get_document_preview(doc_id)))
+            preview = self.get_document_preview(doc_id)
+            previews.append((doc_id, preview[0], preview[1]))
 
         return previews
 
