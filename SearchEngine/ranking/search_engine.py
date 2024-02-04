@@ -2,25 +2,8 @@ import time
 
 import numpy as np
 
-from SpellChecker.dict.dictionary import dictionary
 from SearchEngine.inverse_index.inverse_index import init_documents, init_index
 from SearchEngine.inverse_index.preprocessing.stop_words import init_stop_words
-from SpellChecker.dict import dictionary
-from SpellChecker.main import PATHS
-
-
-def init_engine():
-    start_time = time.time()
-
-    dictionary.init_dict(PATHS)
-    init_stop_words()
-    documents = init_documents()
-    index = init_index()
-
-    engine = SearchEngine(documents, index)
-    print(f'Time to initialize engine: {time.time() - start_time}')
-
-    return engine
 
 
 class SearchEngine:
@@ -92,3 +75,9 @@ class SearchEngine:
 
         return relevant_doc_ids
 
+
+documents = init_documents()
+index = init_index()
+init_stop_words()
+
+engine = SearchEngine(documents, index)
