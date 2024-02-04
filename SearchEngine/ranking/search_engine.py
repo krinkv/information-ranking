@@ -1,8 +1,10 @@
 import time
+from collections import Counter
 
 import numpy as np
 
 from SearchEngine.inverse_index.inverse_index import init_documents, init_index
+from SearchEngine.inverse_index.preprocessing.io_util import read_doc
 from SearchEngine.inverse_index.preprocessing.stop_words import init_stop_words
 
 
@@ -26,8 +28,17 @@ class SearchEngine:
                                    key=lambda cand: cand[1],
                                    reverse=True)
 
-        # return [cand[0] for cand in sorted_candidates][:10]
-        return sorted_candidates[:10]
+        previews = []
+        for doc_id, _ in sorted_candidates[:10]:
+            previews.append((doc_id, self.get_document_preview(doc_id)))
+
+        return previews
+
+    def get_document_preview(self, doc_id):
+        doc_sentences = read_doc(doc_id).split('.')
+        doc_title = ' '.join(doc_sentences[0].split()[:4]) + "..."
+
+        return doc_title, '.'.join(doc_sentences[:2])
 
     def tf_idf(self, term, bag):
         return self.tf(term, bag) * self.idf(term)
