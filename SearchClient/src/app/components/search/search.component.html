@@ -1,0 +1,15 @@
+<div class="center-container">
+  <div class="centered-element">
+    <form (ngSubmit)="onSubmit()" action="" class="search-bar">
+      <input id="search-input"
+             [(ngModel)]="inputValue"
+             type="search"
+             name="search"
+             (input)="onInputChange($event)"
+             pattern=".*\S.*" required>
+      <button class="search-btn" type="submit">
+        <span>Search</span>
+      </button>
+    </form>
+  </div>
+</div>
