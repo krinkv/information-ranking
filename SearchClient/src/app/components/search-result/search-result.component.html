@@ -1,0 +1,7 @@
+<div class="results">
+  <h1>Suggested documents</h1>
+  <div *ngFor="let doc of documents">
+    <p class="title" (click)="onTitleClick(doc)">{{ doc.title }}</p>
+    <p>{{ doc.preview }}</p>
+  </div>
+</div>

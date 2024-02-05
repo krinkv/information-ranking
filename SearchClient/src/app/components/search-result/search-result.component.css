@@ -1,0 +1,10 @@
+.results {
+  display: grid;
+  justify-content: center;
+}
+
+.title {
+  font-size: 25px;
+  color: #2762f3;
+  font-weight: bold;
+}

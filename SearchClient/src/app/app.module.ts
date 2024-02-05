@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import { PresentDocumentComponent } from './components/present-document/present-document.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    SearchResultComponent,
+    PresentDocumentComponent
   ],
   imports: [
     BrowserModule,

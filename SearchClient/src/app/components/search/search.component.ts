@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {DocumentRetrievingService} from "../../services/document-retrieving.service";
+import {Component} from '@angular/core';
 import {SpellcheckingService} from "../../services/spellchecking.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -14,12 +14,12 @@ export class SearchComponent {
   options: string[] = [];
   selectedOption: any;
 
-  constructor(private documentRetrievingService: DocumentRetrievingService,
-              private spellcheckingService: SpellcheckingService) {
+  constructor(private spellcheckingService: SpellcheckingService,
+              private router: Router) {
   }
 
   onSubmit() {
-    this.documentRetrievingService.getBestDocumentCandidates(this.inputValue);
+    this.router.navigate(['/search-result', {data: this.inputValue}])
   }
 
   onCorrect() {

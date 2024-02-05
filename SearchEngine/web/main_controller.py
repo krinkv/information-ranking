@@ -32,9 +32,19 @@ def search():
     preprocessed_query = Counter(tokenize_query(query.lower()))
     result = search_engine.get_best_documents(preprocessed_query)
 
+    converted_objects = []
+
+    for element in result:
+        converted_object = {
+            "doc_id": element[0],
+            "title": element[1][0],
+            "preview": element[1][1]
+        }
+        converted_objects.append(converted_object)
+
     print(f'Time to process query: {time.time() - start_time}')
 
-    return jsonify(result)
+    return jsonify(converted_objects)
 
 
 @app.route('/api/spellcheck', methods=['POST'])
