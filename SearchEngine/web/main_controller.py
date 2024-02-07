@@ -10,7 +10,7 @@ from flask_cors import CORS
 
 from SearchEngine.inverse_index.preprocessing.io_util import read_doc
 from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
-from SearchEngine.ranking.search_engine import engine
+from SearchEngine.ranking.tf_idf.search_engine import engine
 from SpellChecker.query.spell_checker import init_spellchecker
 
 app = Flask(__name__)

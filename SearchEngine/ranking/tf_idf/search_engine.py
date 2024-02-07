@@ -3,7 +3,7 @@ from collections import Counter
 
 import numpy as np
 
-from SearchEngine.inverse_index.inverse_index import init_documents, init_index
+from SearchEngine.inverse_index.inverse_index import init_documents_if_idf, init_index
 from SearchEngine.inverse_index.preprocessing.io_util import read_doc
 from SearchEngine.inverse_index.preprocessing.stop_words import init_stop_words
 
@@ -88,7 +88,7 @@ class SearchEngine:
         return relevant_doc_ids
 
 
-documents = init_documents()
+documents = init_documents_if_idf()
 index = init_index()
 init_stop_words()
 
