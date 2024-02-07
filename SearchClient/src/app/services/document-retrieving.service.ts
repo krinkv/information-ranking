@@ -12,8 +12,8 @@ export class DocumentRetrievingService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getBestDocumentCandidates(inputQuery: string): Observable<any> {
-    return this.httpClient.post(this.apiSearchUrl, { query: inputQuery });
+  getBestDocumentCandidates(inputQuery: string, algorithm: string): Observable<any> {
+    return this.httpClient.post(this.apiSearchUrl, { query: inputQuery, algorithm: algorithm });
   }
 
   getSingleDocument(docId: string): Observable<any> {

@@ -22,7 +22,6 @@ export class PresentDocumentComponent implements OnInit{
     this.documentRetrievingService.getSingleDocument(this.id).subscribe(
       (result: string) => {
         this.content = result;
-        console.log(result);
       },
       (error) => {
         // console.error('Error:', error);

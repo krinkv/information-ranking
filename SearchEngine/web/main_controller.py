@@ -11,6 +11,8 @@ from flask_cors import CORS
 from SearchEngine.inverse_index.preprocessing.io_util import read_doc
 from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
 from SearchEngine.ranking.tf_idf.search_engine import engine
+from SearchEngine.ranking.word_embeddings.search_engine import word_embedding_search_engine
+# from SearchEngine.ranking.word_embeddings.search_engine import word_embedding_search_engine
 from SpellChecker.query.spell_checker import init_spellchecker
 
 app = Flask(__name__)
@@ -26,12 +28,16 @@ def search():
 
     data = request.get_json()
     query = data.get('query')
+    algorithm = data.get('algorithm')
     if query is None:
         return jsonify(f'Invalid fields: {list(data.keys())}'), 400
 
     preprocessed_query = Counter(tokenize_query(query.lower()))
     try:
-        result = search_engine.get_best_documents(preprocessed_query)
+        if algorithm == 'tf-idf':
+            result = search_engine.get_best_documents(preprocessed_query)
+        else:
+            result = word_embedding_search_engine.get_best_documents(preprocessed_query)
     except ValueError:
         return jsonify(f'Query is empty or all words are invalid'), 400
 

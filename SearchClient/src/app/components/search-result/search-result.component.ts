@@ -11,13 +11,15 @@ import {Article} from "../../dto/article";
 export class SearchResultComponent implements OnInit {
   documents?: Article[] = [];
   query: string = '';
+  algorithm: string = '';
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.query = params['data'];
+      this.algorithm = params['algorithm'];
     });
 
-    this.documentRetrievingService.getBestDocumentCandidates(this.query).subscribe(
+    this.documentRetrievingService.getBestDocumentCandidates(this.query, this.algorithm).subscribe(
       (result: Article[]) => {
         this.documents = result;
       },
