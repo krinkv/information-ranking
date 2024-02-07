@@ -37,8 +37,8 @@ def search():
     for element in result:
         converted_object = {
             "doc_id": element[0],
-            "title": element[1][0],
-            "preview": element[1][1]
+            "title": element[1],
+            "preview": element[2]
         }
         converted_objects.append(converted_object)
 
