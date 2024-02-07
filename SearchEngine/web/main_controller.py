@@ -30,7 +30,10 @@ def search():
         return jsonify(f'Invalid fields: {list(data.keys())}'), 400
 
     preprocessed_query = Counter(tokenize_query(query.lower()))
-    result = search_engine.get_best_documents(preprocessed_query)
+    try:
+        result = search_engine.get_best_documents(preprocessed_query)
+    except ValueError:
+        return jsonify(f'Query is empty or all words are invalid'), 400
 
     converted_objects = []
 
