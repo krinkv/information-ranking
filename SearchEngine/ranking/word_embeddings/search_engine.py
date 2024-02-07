@@ -10,14 +10,22 @@ def init_word2vec_model():
 class SearchEngine:
     def __init__(self, word2vec_model, documents):
         self.word2vec_model = word2vec_model
-        self.documents = documents
+        self.documents_vectorized = self.vectorize_docs(documents)
+
+    def vectorize_docs(self, documents):
+        doc_vecs = {}
+
+        for doc_id, doc_bag in documents.items():
+            doc_vecs[doc_id] = self.vectorize(doc_bag)
+
+        return doc_vecs
+
 
     def get_best_documents(self, query_bag):
         candidates = []
         query_vec = self.vectorize(query_bag)
 
-        for doc_id, doc_bag in self.documents.items():
-            doc_vec = self.vectorize(doc_bag)
+        for doc_id, doc_vec in self.documents_vectorized.items():
             candidates.append((doc_id, self.cosine_similarity(query_vec, doc_vec)))
 
         sorted_candidates = sorted(candidates,

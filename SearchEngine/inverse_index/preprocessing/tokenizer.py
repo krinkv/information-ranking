@@ -15,6 +15,6 @@ def preprocess_document(words):
 
 
 def tokenize_query(query):
-    words = query.split()
+    words = query.strip().split()
     words_to_remove = get_stop_words()
     return [word for word in words if word not in words_to_remove]
