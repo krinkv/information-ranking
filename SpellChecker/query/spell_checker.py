@@ -20,14 +20,16 @@ KEYBOARD_LAYOUT = {
 
 POPULARITY_WEIGHTS = {}
 
-PATHS = ["../resources/dictionary/english-words.10",
-         "../resources/dictionary/english-words.20",
-         "../resources/dictionary/english-words.35",
-         "../resources/dictionary/english-words.40",
-         "../resources/dictionary/english-words.50",
-         "../resources/dictionary/english-words.55",
-         "../resources/dictionary/english-words.60",
-         "../resources/dictionary/english-words.70"]
+PATHS = [
+    "../resources/dictionary/english-words.10",
+    "../resources/dictionary/english-words.20",
+    "../resources/dictionary/english-words.35",
+    "../resources/dictionary/english-words.40",
+    "../resources/dictionary/english-words.50",
+    "../resources/dictionary/english-words.55",
+    # "../resources/dictionary/english-words.60",
+    # "../resources/dictionary/english-words.70"
+]
 
 
 def init_spellchecker():
