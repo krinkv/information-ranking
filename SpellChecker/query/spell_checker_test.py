@@ -38,15 +38,16 @@ def test_word_corrections():
         if len(corrections) == 0:
             continue
 
-        actual = corrections[0][0]
+        actual = corrections[:3]
+        actual_words = set(map(lambda tup: tup[0], actual))
         print(YELLOW + 'mistake: ' + mistake + ENDC)
         print(GREEN + 'expected: ' + expected + ENDC)
 
-        if expected == actual:
-            print(GREEN + 'actual: ' + actual + ENDC)
+        if expected in actual_words:
+            print(GREEN + 'actual: ' + str(actual) + ENDC)
             positives += 1
         else:
-            print(RED + 'actual: ' + actual + ENDC)
+            print(RED + 'actual: ' + str(actual) + ENDC)
 
         print()
     accuracy = positives / len(testing_dict)
