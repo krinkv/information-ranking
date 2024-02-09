@@ -1,5 +1,5 @@
 k_gram_index = {}
-k = 3
+k = 2
 
 
 def init_index(words):
@@ -20,7 +20,7 @@ def get_best_candidates(input_word):
 
     similarities = [(word, jaccard_similarity(input_word, word)) for word in candidate_words]
     sorted_candidates = sorted(similarities, key=lambda x: x[1], reverse=True)
-    best_candidates = [(word, similarity) for word, similarity in sorted_candidates][:50]
+    best_candidates = [(word, similarity) for word, similarity in sorted_candidates if similarity >= 0.10][:50]
     return best_candidates
 
 
