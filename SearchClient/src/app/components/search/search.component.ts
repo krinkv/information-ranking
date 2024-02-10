@@ -59,12 +59,4 @@ export class SearchComponent {
       );
     }
   }
-
-  changeAlgorithm() {
-    if (this.algorithm === 'nlp') {
-      this.algorithm = 'tf-idf';
-    } else {
-      this.algorithm = 'nlp';
-    }
-  }
 }
