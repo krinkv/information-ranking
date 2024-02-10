@@ -1,4 +1,9 @@
+from nltk import WordNetLemmatizer
+
 from SearchEngine.inverse_index.preprocessing.stop_words import get_stop_words
+
+
+lemmatizer = WordNetLemmatizer()
 
 CORPUS_DIR = '../../resources/'
 
@@ -11,10 +16,11 @@ CORPUS_DIR = '../../resources/'
 def preprocess_document(words):
     words_without_category = words[1:]
     words_to_remove = get_stop_words()
-    return [word for word in words_without_category if word not in words_to_remove and word.isalnum()]
+    return [lemmatizer.lemmatize(word)
+            for word in words_without_category if word not in words_to_remove and word.isalnum()]
 
 
 def tokenize_query(query):
     words = query.strip().split()
     words_to_remove = get_stop_words()
-    return [word for word in words if word not in words_to_remove]
+    return [lemmatizer.lemmatize(word) for word in words if word not in words_to_remove]

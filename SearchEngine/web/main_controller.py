@@ -10,14 +10,14 @@ from flask_cors import CORS
 
 from SearchEngine.inverse_index.preprocessing.io_util import read_doc
 from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
-from SearchEngine.ranking.tf_idf.search_engine import engine
-from SearchEngine.ranking.word_embeddings.search_engine import word_embedding_search_engine
-# from SearchEngine.ranking.word_embeddings.search_engine import word_embedding_search_engine
+from SearchEngine.ranking.tf_idf.search_engine import init_tf_idf_engine
+from SearchEngine.ranking.word_embeddings.search_engine import init_engine as init_we_engine
 from SpellChecker.query.spell_checker import init_spellchecker
 
 app = Flask(__name__)
 spellchecker = init_spellchecker()
-search_engine = engine
+tf_idf_search_engine = init_tf_idf_engine()
+# word_embedding_search_engine = init_we_engine()
 
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})  # Adjust the path and origins as needed
 
@@ -35,9 +35,10 @@ def search():
     preprocessed_query = Counter(tokenize_query(query.lower()))
     try:
         if algorithm == 'tf-idf':
-            result = search_engine.get_best_documents(preprocessed_query)
+            result = tf_idf_search_engine.get_best_documents(preprocessed_query)
         else:
-            result = word_embedding_search_engine.get_best_documents(preprocessed_query)
+            # result = word_embedding_search_engine.get_best_documents(preprocessed_query)
+            pass
     except ValueError:
         return jsonify(f'Query is empty or all words are invalid'), 400
 
