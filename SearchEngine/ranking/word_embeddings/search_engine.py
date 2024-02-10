@@ -10,6 +10,12 @@ def init_word2vec_model():
     return api.load("word2vec-google-news-300")
 
 
+def init_engine():
+    documents = init_documents_word_embeddings()
+    w2v_model = init_word2vec_model()
+    return SearchEngine(w2v_model, documents)
+
+
 class SearchEngine:
     def __init__(self, word2vec_model, documents):
         self.word2vec_model = word2vec_model
@@ -54,8 +60,3 @@ class SearchEngine:
 
     def cosine_similarity(self, query_vec, doc_vec):
         return cosine_similarity([query_vec], [doc_vec])[0][0]
-
-
-documents = init_documents_word_embeddings()
-w2v_model = init_word2vec_model()
-word_embedding_search_engine = SearchEngine(w2v_model, documents)

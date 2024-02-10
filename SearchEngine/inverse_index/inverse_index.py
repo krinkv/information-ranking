@@ -19,7 +19,7 @@ Initialize the `documents` dictionary that would be:
 """
 
 
-def init_documents_if_idf():
+def init_documents_tf_idf():
     corpus = PlaintextCorpusReader(CORPUS_DIR, '.*\.txt')
     document_names = corpus.fileids()
 
@@ -55,9 +55,9 @@ term -> list of ids of the docs that contain term
 """
 
 
-def init_index():
-    for doc_id in documents_tf_idf:
-        for word, _ in documents_tf_idf[doc_id].items():
+def init_index(documents):
+    for doc_id in documents:
+        for word, _ in documents[doc_id].items():
             if word.isalnum():
                 if word in index:
                     index[word].add(doc_id)
