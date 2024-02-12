@@ -13,11 +13,12 @@ from SearchEngine.inverse_index.preprocessing.tokenizer import tokenize_query
 from SearchEngine.ranking.tf_idf.search_engine import init_tf_idf_engine
 from SearchEngine.ranking.word_embeddings.search_engine import init_engine as init_we_engine
 from SpellChecker.query.spell_checker import init_spellchecker
+from SpellChecker.query.statistical_spellchecker.statistical_spellchecker import correction
 
 app = Flask(__name__)
 spellchecker = init_spellchecker()
-tf_idf_search_engine = init_tf_idf_engine()
-# word_embedding_search_engine = init_we_engine()
+# tf_idf_search_engine = init_tf_idf_engine()
+word_embedding_search_engine = init_we_engine()
 
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})  # Adjust the path and origins as needed
 
@@ -34,10 +35,10 @@ def search():
 
     preprocessed_query = Counter(tokenize_query(query.lower()))
     try:
-        if algorithm == 'tf-idf':
-            result = tf_idf_search_engine.get_best_documents(preprocessed_query)
+        if algorithm == 'nlp':
+            result = word_embedding_search_engine.get_best_documents(preprocessed_query)
+            # result = tf_idf_search_engine.get_best_documents(preprocessed_query)
         else:
-            # result = word_embedding_search_engine.get_best_documents(preprocessed_query)
             pass
     except ValueError:
         return jsonify(f'Query is empty or all words are invalid'), 400
@@ -65,6 +66,21 @@ def spellcheck():
         return jsonify(f'Invalid fields: {list(data.keys())}'), 400
 
     result = spellchecker.word_corrections(query)
+
+    if len(result) == 0:
+        return make_response('', 204)
+    else:
+        return jsonify(result)
+
+
+@app.route('/api/spellcheck-nlp', methods=['POST'])
+def spellcheck_nlp():
+    data = request.get_json()
+    query = data.get('query')
+    if query is None:
+        return jsonify(f'Invalid fields: {list(data.keys())}'), 400
+
+    result = correction(query)
 
     if len(result) == 0:
         return make_response('', 204)

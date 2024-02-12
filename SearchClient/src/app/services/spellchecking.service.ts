@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class SpellcheckingService {
 
-  private apiUrl: string = 'http://localhost:5000/api/spellcheck'
+  private apiUrl: string = 'http://localhost:5000/api/spellcheck-nlp'
 
   constructor(private httpClient: HttpClient) { }
 
