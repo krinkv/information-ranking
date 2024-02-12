@@ -10,10 +10,10 @@ import {Router} from "@angular/router";
 export class SearchComponent {
   inputValue: string = '';
   lastInterval: number = -1;
-  data: [string, number][] = []; // Assume data is an array of arrays
+  data: string[] = []; // Assume data is an array of arrays
   options: string[] = [];
   selectedOption: any;
-  algorithm: string = 'tf-idf';
+  algorithm: string = 'nlp';
 
   constructor(private spellcheckingService: SpellcheckingService,
               private router: Router) {
@@ -49,9 +49,8 @@ export class SearchComponent {
 
       console.log(singleWord)
       this.spellcheckingService.spellcheckSingleWord(singleWord).subscribe(
-        (result: [string, number][]) => {
-          this.data = result;
-          this.options = this.data.map(tuple => tuple[0])
+        (result: string[]) => {
+          this.options = result
         },
         (error) => {
           // console.error('Error:', error);
